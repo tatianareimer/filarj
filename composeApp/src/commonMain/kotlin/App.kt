@@ -1,37 +1,39 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.ui.graphics.Color
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.transitions.SlideTransition
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import filarj.composeapp.generated.resources.Res
-import filarj.composeapp.generated.resources.compose_multiplatform
+import presentation.screen.home.HomeScreen
 
-@OptIn(ExperimentalResourceApi::class)
+val lightYellow = Color(0xFFFFEDBE);
+val lightBlue = Color(0xFF0080A8)
+
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
+    val lightColors = lightColorScheme(
+        primary = lightBlue,
+        onPrimary = lightYellow,
+        primaryContainer = lightBlue,
+        onPrimaryContainer = lightYellow
+    )
+    val darkColors = darkColorScheme(
+        primary = lightBlue,
+        onPrimary = lightYellow,
+        primaryContainer = lightBlue,
+        onPrimaryContainer = lightYellow
+    )
+    val colors by mutableStateOf(
+        if (isSystemInDarkTheme()) darkColors else lightColors
+    )
+    MaterialTheme(colorScheme = colors) {
+        Navigator(HomeScreen()) {
+            SlideTransition(it)
         }
     }
 }

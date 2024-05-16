@@ -14,4 +14,3 @@ This is a Kotlin Multiplatform project targeting Android, iOS.
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 =======
 # filarj
->>>>>>> 6365c7dab37b820b0d724799bc8e594921d1e4ff
